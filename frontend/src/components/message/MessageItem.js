@@ -2,6 +2,12 @@ import React from "react";
 
 import { Avatar, Box, Paper, Typography } from "@mui/material";
 
+const getNameInitials = (name) =>
+  name
+    .split(" ")
+    .map((char) => char[0].toUpperCase())
+    .join(".");
+
 export const MessageItem = ({ from, subject, bodyPreview, receivedAt }) => {
   return (
     <Paper elevation={0} className="message-item">
@@ -16,21 +22,25 @@ export const MessageItem = ({ from, subject, bodyPreview, receivedAt }) => {
           borderBottom: 1,
           borderColor: "divider",
         }}
+        noWrap
       >
         <Avatar size="small" sx={{ height: 36, width: 36 }}>
-          <Typography variant="subtitle1">M.S</Typography>
+          <Typography variant="caption">
+            {getNameInitials(from.name)}
+          </Typography>
         </Avatar>
-        <Box sx={{ flexShrink: 0, marginLeft: 2 }}>
+        <Box
+          sx={{ flexShrink: 0, marginLeft: 2, width: 200 }}
+          title={from.address}
+        >
           <Typography noWrap>{from.name}</Typography>
           <Typography sx={{ color: "gray", fontSize: 13 }} noWrap>
             {from.address}
           </Typography>
         </Box>
-        <Box sx={{ flexGrow: 1, marginX: 6 }}>
-          <Typography sx={{ fontWeight: 400 }} noWrap>
-            {subject}
-          </Typography>
-          <Typography sx={{ color: "gray", fontSize: 12 }} noWrap>
+        <Box sx={{ flexGrow: 1, marginX: 6 }} noWrap>
+          <Typography sx={{ fontWeight: 400 }}>{subject}</Typography>
+          <Typography sx={{ color: "gray", fontSize: 12 }}>
             {bodyPreview}
           </Typography>
         </Box>

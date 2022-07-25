@@ -10,8 +10,8 @@ const router = Router();
 
 router.get("/", getAllMessages);
 
-router.get("/:id", getMessageDetail);
-
 router.get("/fetch-messages", fetchMessages);
+
+router.get("/:id", getMessageDetail);
 
 export default router;
