@@ -2,7 +2,7 @@ import React from "react";
 
 import { Avatar, Box, Paper, Typography } from "@mui/material";
 
-export const MessageItem = () => {
+export const MessageItem = ({ from, subject, bodyPreview, receivedAt }) => {
   return (
     <Paper elevation={0} className="message-item">
       <Box
@@ -20,24 +20,28 @@ export const MessageItem = () => {
         <Avatar size="small" sx={{ height: 36, width: 36 }}>
           <Typography variant="subtitle1">M.S</Typography>
         </Avatar>
-        <Typography sx={{ flexShrink: 0, width: 160, marginLeft: 2 }} noWrap>
-          Michael G. Scott
-        </Typography>
-        <Typography sx={{ flexGrow: 1, color: "gray" }} noWrap>
-          Hi Sanjay, Michael here, Co-Founder and CEO at GraphCMS. I was
-          thrilled to see you sign up a week ago! Hi Sanjay, Michael here,
-          Co-Founder and CEO at GraphCMS. I was thrilled to see you sign up a
-          week ago!
-        </Typography>
+        <Box sx={{ flexShrink: 0, marginLeft: 2 }}>
+          <Typography noWrap>{from.name}</Typography>
+          <Typography sx={{ color: "gray", fontSize: 13 }} noWrap>
+            {from.address}
+          </Typography>
+        </Box>
+        <Box sx={{ flexGrow: 1, marginX: 6 }}>
+          <Typography sx={{ fontWeight: 400 }} noWrap>
+            {subject}
+          </Typography>
+          <Typography sx={{ color: "gray", fontSize: 12 }} noWrap>
+            {bodyPreview}
+          </Typography>
+        </Box>
         <Typography
           sx={{
             flexShrink: 0,
             fontSize: 12,
             fontWeight: 500,
-            marginLeft: 5,
           }}
         >
-          Jun 22
+          {new Date(receivedAt).toLocaleDateString()}
         </Typography>
       </Box>
     </Paper>

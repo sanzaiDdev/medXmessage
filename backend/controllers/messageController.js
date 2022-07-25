@@ -38,7 +38,6 @@ export const getMessages = async (req, res, next) => {
   const messages = await Message.find();
 
   res.status(200).json({
-    status: "success",
-    data: messages,
+    messages,
   });
 };

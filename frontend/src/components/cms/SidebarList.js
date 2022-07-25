@@ -8,8 +8,7 @@ import ListItemText from "@mui/material/ListItemText";
 // icons
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SettingsIcon from "@mui/icons-material/Settings";
-import SubjectIcon from "@mui/icons-material/Subject";
-
+import MessageIcon from "@mui/icons-material/Message";
 export const SidebarList = () => {
   return (
     <List component="nav">
@@ -21,7 +20,7 @@ export const SidebarList = () => {
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
-          <SubjectIcon />
+          <MessageIcon />
         </ListItemIcon>
         <ListItemText primary="Messages" />
       </ListItemButton>
