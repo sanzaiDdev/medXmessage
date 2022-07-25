@@ -12,7 +12,7 @@ function App() {
       <Provider store={store}>
         <Routes>
           {/* <Route path="/*" element={<GuestRoutes />} /> */}
-          <Route path="/" element={<Navigate to="/cms/cases" replace />} />
+          <Route path="/" element={<Navigate to="/cms/messages " replace />} />
           <Route path="/cms/*" element={<CMSRoutes />} />
         </Routes>{" "}
       </Provider>

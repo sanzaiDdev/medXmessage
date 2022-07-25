@@ -3,8 +3,8 @@ import { Link as RouterLink } from "react-router-dom";
 import { Box, IconButton, Paper, Stack, Typography, Link } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
-import { MessageItem } from "../../components/message/MessageItem";
-import { useGetMessagesQuery } from "../../store/services/message";
+import { MessageItem } from "../../../components/message/MessageItem";
+import { useGetMessagesQuery } from "../../../store/services/message";
 
 export const MessageScreen = () => {
   const { data, isLoading, refetch } = useGetMessagesQuery();
