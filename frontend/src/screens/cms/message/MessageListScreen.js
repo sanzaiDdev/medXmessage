@@ -9,6 +9,8 @@ import { useGetMessagesQuery } from "../../../store/services/message";
 export const MessageListScreen = () => {
   const { data, isLoading, refetch } = useGetMessagesQuery();
 
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <Box sx={{ width: "100%" }}>
       <Paper elevation={0} sx={{ marginBottom: 2 }}>
@@ -30,9 +32,7 @@ export const MessageListScreen = () => {
         </Box>
       </Paper>
 
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : data ? (
+      {data.messages.length ? (
         <Stack>
           {data.messages.map((message) => (
             <Link
@@ -45,7 +45,9 @@ export const MessageListScreen = () => {
             </Link>
           ))}
         </Stack>
-      ) : null}
+      ) : (
+        <div>No messages</div>
+      )}
     </Box>
   );
 };
