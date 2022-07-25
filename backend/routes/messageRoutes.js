@@ -2,12 +2,15 @@ import { Router } from "express";
 
 import {
   fetchMessages,
-  getMessages,
+  getAllMessages,
+  getMessageDetail,
 } from "../controllers/messageController.js";
 
 const router = Router();
 
-router.get("/", getMessages);
+router.get("/", getAllMessages);
+
+router.get("/:id", getMessageDetail);
 
 router.get("/fetch-messages", fetchMessages);
 

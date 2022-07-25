@@ -6,7 +6,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import { MessageItem } from "../../../components/message/MessageItem";
 import { useGetMessagesQuery } from "../../../store/services/message";
 
-export const MessageScreen = () => {
+export const MessageListScreen = () => {
   const { data, isLoading, refetch } = useGetMessagesQuery();
 
   return (

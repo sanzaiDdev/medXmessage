@@ -7,7 +7,10 @@ export const messageApi = createApi({
     getMessages: builder.query({
       query: () => "messages",
     }),
+    getMessageDetail: builder.query({
+      query: (id) => `messages/${id}`,
+    }),
   }),
 });
 
-export const { useGetMessagesQuery } = messageApi;
+export const { useGetMessagesQuery, useGetMessageDetailQuery } = messageApi;

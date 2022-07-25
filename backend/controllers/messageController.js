@@ -34,10 +34,18 @@ export const fetchMessages = async (req, res, next) => {
   });
 };
 
-export const getMessages = async (req, res, next) => {
+export const getAllMessages = async (req, res, next) => {
   const messages = await Message.find();
 
   res.status(200).json({
     messages,
+  });
+};
+
+export const getMessageDetail = async (req, res, next) => {
+  const message = await Message.findById(req.params.id);
+
+  res.status(200).json({
+    message,
   });
 };
