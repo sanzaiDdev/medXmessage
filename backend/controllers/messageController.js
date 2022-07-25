@@ -14,7 +14,7 @@ export const fetchMessages = async (req, res, next) => {
   // messages with the subject that includes the string "Case Id"
   const caseMessages = mails.filter((m) => regEx.test(m.subject));
 
-  const mappedMails = mails?.map((m) => ({
+  const mappedMails = caseMessages?.map((m) => ({
     from: m.from.emailAddress,
     subject: m.subject,
     toReceipients: m.toRecipients.map((r) => r.emailAddress),
