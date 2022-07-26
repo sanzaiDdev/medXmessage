@@ -21,8 +21,8 @@ const getInbox = async () => {
   const token = await getToken();
 
   try {
-    // fetching mails from user's "INBOX" mail folder
-    const url = `https://graph.microsoft.com/v1.0/users/${process.env.USER_ID}/mailFolders/${process.env.MAIL_FOLDER_ID}/messages`;
+    // fetching top 20 mails from user's "INBOX" mail folder
+    const url = `https://graph.microsoft.com/v1.0/users/${process.env.USER_ID}/mailFolders/${process.env.MAIL_FOLDER_ID}/messages?$top=20`;
 
     const messages = await getMessages(token, url);
 
