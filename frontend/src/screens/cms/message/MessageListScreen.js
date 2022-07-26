@@ -11,6 +11,7 @@ import { MessageItem } from "../../../components/message/MessageItem";
 export const MessageListScreen = () => {
   const [info, setInfo] = React.useState("");
   const [showInfo, setShowInfo] = React.useState(false);
+
   // RTKQuery
   const { data, isLoading, refetch } = useGetMessagesQuery();
 
