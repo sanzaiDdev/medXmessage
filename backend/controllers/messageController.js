@@ -1,4 +1,6 @@
 import { Message } from "../models/messsageModel.js";
+import { emitEvent } from "../socket/socket.service.js";
+
 import getInbox from "../utils/graphMails/fetchMails.js";
 
 const extractBody = (entirePageHTML) => {
@@ -33,6 +35,12 @@ export const fetchMessages = async (req, res, next) => {
     if (!existingMessages.find((em) => em.subject === m.subject))
       nonDuplicatedMessages.push(m);
   });
+
+  nonDuplicatedMessages.length > 0 &&
+    emitEvent(
+      "MESSAGE_FETCHED",
+      `${nonDuplicatedMessages.length} new messages`
+    );
 
   await Message.insertMany(nonDuplicatedMessages);
 

@@ -4,10 +4,10 @@ import dotenv from "dotenv";
 import express from "express";
 
 import { connectDB } from "./config/db.js";
+import { initializeSocket } from "./socket/socket.service.js";
+import { fetchMessages } from "./controllers/messageController.js";
 
 import messageRouter from "./routes/messageRoutes.js";
-
-import { fetchMessages } from "./controllers/messageController.js";
 
 dotenv.config();
 
@@ -26,6 +26,8 @@ cron.schedule("*/5 * * * *", async () => {
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
+initializeSocket(server);
