@@ -1,15 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import {
-  Box,
-  IconButton,
-  Paper,
-  Stack,
-  Typography,
-  Link,
-  Alert,
-  Button,
-} from "@mui/material";
+import { Box, IconButton, Paper, Stack, Typography, Link } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 import { getSocket } from "../../../utils/socket.io.service";
@@ -21,7 +12,7 @@ export const MessageListScreen = () => {
   const [info, setInfo] = React.useState("");
   const [showInfo, setShowInfo] = React.useState(false);
   // RTKQuery
-  const { data, isLoading, isFetching, refetch } = useGetMessagesQuery();
+  const { data, isLoading, refetch } = useGetMessagesQuery();
 
   const socket = getSocket();
 
