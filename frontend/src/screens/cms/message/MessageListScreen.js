@@ -7,7 +7,7 @@ import { MessageItem } from "../../../components/message/MessageItem";
 import { useGetMessagesQuery } from "../../../store/services/message";
 
 export const MessageListScreen = () => {
-  const { data, isLoading, refetch } = useGetMessagesQuery();
+  const { data, isLoading, isFetching, refetch } = useGetMessagesQuery();
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -21,14 +21,19 @@ export const MessageListScreen = () => {
           sx={{ width: "100%", paddingX: 2, paddingY: 1 }}
         >
           <Typography sx={{ fontWeight: 500 }}>Messages (Inbox)</Typography>
-          <IconButton
-            color="primary"
-            size="small"
-            title="Refresh"
-            onClick={() => refetch()}
-          >
-            <RefreshIcon />
-          </IconButton>
+          <Box>
+            {isFetching && (
+              <Typography variant="caption">Fetching...</Typography>
+            )}
+            <IconButton
+              color="primary"
+              size="small"
+              title="Refresh"
+              onClick={() => refetch()}
+            >
+              <RefreshIcon />
+            </IconButton>
+          </Box>
         </Box>
       </Paper>
 
