@@ -20,7 +20,7 @@ app.use(cors());
 app.use("/messages", messageRouter);
 
 // fetching messages every 5 min
-cron.schedule("* * * * *", async () => {
+cron.schedule("*/5 * * * *", async () => {
   await fetchMessages();
 });
 
