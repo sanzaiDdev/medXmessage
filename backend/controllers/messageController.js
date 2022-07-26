@@ -9,6 +9,8 @@ const extractBody = (entirePageHTML) => {
 export const fetchMessages = async (req, res, next) => {
   const mails = await getInbox();
 
+  const existingMessages = await Message.find();
+
   // regular expression that match the subject with string 'Case Id' w/o case-sensitivity
   const regEx = /\b(Case Id)\b/i;
   // messages with the subject that includes the string "Case Id"
@@ -25,7 +27,14 @@ export const fetchMessages = async (req, res, next) => {
     hasAttachments: m.hasAttachments,
   }));
 
-  await Message.insertMany(mappedMails);
+  //exclude already exisiting news based on subject
+  const nonDuplicatedMessages = [];
+  mappedMails.forEach((m) => {
+    if (!existingMessages.find((em) => em.subject === m.subject))
+      nonDuplicatedMessages.push(m);
+  });
+
+  await Message.insertMany(nonDuplicatedMessages);
 
   res.status(201).json({
     status: "success",

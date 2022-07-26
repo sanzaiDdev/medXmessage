@@ -1,10 +1,13 @@
 import cors from "cors";
+import cron from "node-cron";
 import dotenv from "dotenv";
 import express from "express";
 
 import { connectDB } from "./config/db.js";
 
 import messageRouter from "./routes/messageRoutes.js";
+
+import { fetchMessages } from "./controllers/messageController.js";
 
 dotenv.config();
 
@@ -15,6 +18,11 @@ const app = express();
 app.use(cors());
 
 app.use("/messages", messageRouter);
+
+// fetching messages every 5 min
+cron.schedule("* * * * *", async () => {
+  await fetchMessages();
+});
 
 const PORT = process.env.PORT || 4000;
 
