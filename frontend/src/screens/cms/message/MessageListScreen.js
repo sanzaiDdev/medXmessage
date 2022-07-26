@@ -3,11 +3,23 @@ import { Link as RouterLink } from "react-router-dom";
 import { Box, IconButton, Paper, Stack, Typography, Link } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
-import { MessageItem } from "../../../components/message/MessageItem";
+import { getSocket } from "../../../utils/socket.io.service";
 import { useGetMessagesQuery } from "../../../store/services/message";
 
+import { MessageItem } from "../../../components/message/MessageItem";
+
 export const MessageListScreen = () => {
+  // RTKQuery
   const { data, isLoading, isFetching, refetch } = useGetMessagesQuery();
+
+  const socket = getSocket();
+
+  React.useEffect(() => {
+    socket.on("MESSAGE_FETCHED", (message) => {
+      alert(message);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) return <div>Loading...</div>;
 
