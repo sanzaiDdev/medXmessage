@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 import {
   useGetMessageDetailQuery,
@@ -135,6 +136,9 @@ export const MessageDetailScreen = () => {
                   <Button
                     key={attachment.attachmentId}
                     sx={{ textDecoration: "none" }}
+                    variant="outlined"
+                    title={`Download ${attachment.name}`}
+                    startIcon={<FileDownloadIcon />}
                     onClick={() => handleAttachmentDownload(attachment)}
                   >
                     {attachment.name}
