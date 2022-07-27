@@ -56,7 +56,10 @@ export const MessageDetailScreen = () => {
               <Typography sx={{ color: "gray" }}>From</Typography>
             </Grid>
             <Grid item md={9}>
-              {data.message?.from.name ?? "--"}
+              <span>{data.message?.from.name ?? "--"} </span>
+              <span style={{ color: "gray" }}>
+                {`(${data.message?.from.address})` ?? "--"}
+              </span>
             </Grid>
 
             <Grid item md={2}>
