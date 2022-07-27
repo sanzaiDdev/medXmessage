@@ -1,11 +1,13 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 
 import { store } from "./store";
 
 import { CMSRoutes } from "./routers/CMSRoutes";
+import { NotFoundScreen } from "./screens/NotFoundScreen";
 // import { GuestRoutes } from "./routers/GuestRoutes";
 
 function App() {
@@ -23,7 +25,8 @@ function App() {
           {/* <Route path="/*" element={<GuestRoutes />} /> */}
           <Route path="/" element={<Navigate to="/cms/messages " replace />} />
           <Route path="/cms/*" element={<CMSRoutes />} />
-        </Routes>{" "}
+          <Route path="/*" element={<NotFoundScreen />} />
+        </Routes>
       </Provider>
     </div>
   );
