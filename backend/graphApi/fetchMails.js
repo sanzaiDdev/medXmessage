@@ -16,8 +16,12 @@ export const getMessageAttachments = async (mailId) => {
 };
 
 export const getAttachmentRawData = async (messageId, attachmentId) => {
-  const url = `https://graph.microsoft.com/v1.0/users/${process.env.USER_ID}/messages/${messageId}/attachments/${attachmentId}/$value`;
-  return await authenticatedGraphGetRequest(url);
+  const url = `https://graph.microsoft.com/v1.0/users/${process.env.USER_ID}/messages/${messageId}/attachments/${attachmentId}`;
+  const res = await authenticatedGraphGetRequest(url);
+
+  console.log(res);
+
+  return res.data;
 };
 
 const authenticatedGraphGetRequest = async (url) => {

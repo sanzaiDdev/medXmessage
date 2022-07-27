@@ -68,12 +68,17 @@ export const fetchMessages = async (req, res, next) => {
 };
 
 export const getAttachment = async (req, res, next) => {
-  const rawRes = await getAttachmentRawData(
+  const attachment = await getAttachmentRawData(
     req.query.messageId,
     req.query.attachmentId
   );
 
-  res.json({ rawData: rawRes.data });
+  const fileContent = new Buffer.from(attachment.contentBytes, "base64");
+
+  res.json({
+    rawData: attachment,
+    fileContent,
+  });
 };
 
 export const getAllMessages = async (req, res, next) => {
