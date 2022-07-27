@@ -18,6 +18,13 @@ export const messageApi = createApi({
         };
       },
     }),
+    sendMessage: builder.mutation({
+      query: (messagePayload) => ({
+        url: "/messages/send",
+        method: "POST",
+        body: messagePayload,
+      }),
+    }),
   }),
 });
 

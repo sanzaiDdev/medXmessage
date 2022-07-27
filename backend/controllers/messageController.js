@@ -4,8 +4,8 @@ import { emitEvent } from "../socket/socket.service.js";
 import getInbox, {
   getAttachmentRawData,
   getMessageAttachments,
-} from "../utils/graphMails/fetchMails.js";
-import getToken from "../utils/graphMails/getAuthToken.js";
+} from "../graphApi/fetchMails.js";
+import getToken from "../graphApi/getAuthToken.js";
 
 const extractBody = (entirePageHTML) => {
   var bodyHtml = /<body.*?>([\s\S]*)<\/body>/.exec(entirePageHTML)[1];
@@ -88,5 +88,15 @@ export const getMessageDetail = async (req, res, next) => {
 
   res.status(200).json({
     message,
+  });
+};
+
+export const sendMessage = async (req, res, next) => {
+  const { message, subject, toReceipients } = req.body;
+
+  res.status(201).json({
+    message,
+    subject,
+    toReceipients,
   });
 };

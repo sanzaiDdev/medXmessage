@@ -64,4 +64,46 @@ const getInbox = async () => {
   }
 };
 
+export const sendMessage = async ({
+  subject,
+  toRecetoRecipients,
+  messageContent,
+}) => {
+  const token = await getToken();
+
+  const mailUrl = `https://graph.microsoft.com/v1.0/users/${process.env.USER_ID}/sendMail`;
+
+  const mailData = {
+    message: {
+      subject,
+      body: {
+        contentType: "HTML",
+        content: content,
+      },
+      toRecipients: [
+        {
+          emailAddress: {
+            address: "bibek.lamichhane@nepalcanmove.com",
+          },
+        },
+      ],
+    },
+    saveToSentItems: "true",
+  };
+
+  const res = await axios({
+    method: "POST",
+    url: mailUrl,
+    data: mailData,
+    headers: {
+      Authorization: `Bearer ${token.access_token}`,
+      "Content-type": "application/json",
+    },
+  });
+
+  console.log(res);
+
+  return;
+};
+
 export default getInbox;
