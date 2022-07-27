@@ -127,7 +127,7 @@ export const MessageDetailScreen = () => {
               <Box
                 sx={{
                   width: "100%",
-                  padding: 2,
+                  paddingY: 2,
                   borderTop: 1,
                   borderColor: "divider",
                 }}
@@ -135,7 +135,7 @@ export const MessageDetailScreen = () => {
                 {data?.message?.attachments.map((attachment) => (
                   <Button
                     key={attachment.attachmentId}
-                    sx={{ textDecoration: "none" }}
+                    sx={{ textDecoration: "none", marginRight: 2 }}
                     variant="outlined"
                     title={`Download ${attachment.name}`}
                     startIcon={<FileDownloadIcon />}
