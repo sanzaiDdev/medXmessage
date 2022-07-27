@@ -22,8 +22,7 @@ export const MessageDetailScreen = () => {
 
   // RTKQuery
   const { data, error, isLoading } = useGetMessageDetailQuery(id);
-  const [messageAttachment, { isLoading: loadingAttachment }] =
-    useLazyGetMessageAttachmentQuery();
+  const [messageAttachment] = useLazyGetMessageAttachmentQuery();
 
   if (isLoading) return <div>Loading...</div>;
 
