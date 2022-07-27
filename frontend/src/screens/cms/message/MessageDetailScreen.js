@@ -1,22 +1,11 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import download from "downloadjs";
 
-import {
-  Box,
-  Button,
-  Grid,
-  IconButton,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, Grid, IconButton, Paper, Typography } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
-import {
-  useGetMessageDetailQuery,
-  useLazyGetMessageAttachmentQuery,
-} from "../../../store/services/message";
+import { useGetMessageDetailQuery } from "../../../store/services/message";
+import { DownloadableAttachment } from "../../../components/message/DownloadableAttachment";
 
 export const MessageDetailScreen = () => {
   const { id } = useParams();
@@ -24,25 +13,6 @@ export const MessageDetailScreen = () => {
 
   // RTKQuery
   const { data, error, isLoading } = useGetMessageDetailQuery(id);
-  const [fetchMessageAttachment] = useLazyGetMessageAttachmentQuery();
-
-  const handleAttachmentDownload = async ({
-    messageId,
-    attachmentId,
-    type,
-    name,
-  }) => {
-    fetchMessageAttachment({ messageId, attachmentId })
-      .unwrap()
-      .then((res) => {
-        download(
-          `data:application/${type.slice("/")[0]};base64,` +
-            res.rawData.contentBytes,
-          `${name}`,
-          type
-        );
-      });
-  };
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -133,16 +103,10 @@ export const MessageDetailScreen = () => {
                 }}
               >
                 {data?.message?.attachments.map((attachment) => (
-                  <Button
+                  <DownloadableAttachment
                     key={attachment.attachmentId}
-                    sx={{ textDecoration: "none", marginRight: 2 }}
-                    variant="outlined"
-                    title={`Download ${attachment.name}`}
-                    startIcon={<FileDownloadIcon />}
-                    onClick={() => handleAttachmentDownload(attachment)}
-                  >
-                    {attachment.name}
-                  </Button>
+                    attachment={attachment}
+                  />
                 ))}
               </Box>
             </>
