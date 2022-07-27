@@ -105,6 +105,6 @@ export const sendMessageToReceipient = async (req, res, next) => {
   res.json({
     status,
     message:
-      status === 200 ? "Message successfully sent!" : "Something went wrong",
+      status === 202 ? "Message successfully sent!" : "Something went wrong",
   });
 };

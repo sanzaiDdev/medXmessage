@@ -46,8 +46,9 @@ export const SendMessageScreen = () => {
       .then((res) => {
         if (res.status === 202) {
           navigate("/cms/messages");
-          toast.success(res.message, {});
           reset({ ...INITIAL_STATE });
+        } else {
+          toast.error(res.message, {});
         }
       });
   };
