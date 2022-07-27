@@ -3,6 +3,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
+import { toast } from "react-toastify";
+
 import {
   Box,
   Grid,
@@ -44,6 +46,7 @@ export const SendMessageScreen = () => {
       .then((res) => {
         if (res.status === 202) {
           navigate("/cms/messages");
+          toast.success(res.message, {});
           reset({ ...INITIAL_STATE });
         }
       });
@@ -57,6 +60,7 @@ export const SendMessageScreen = () => {
           alignItems="center"
           sx={{ width: "100%", paddingX: 2, paddingY: 1 }}
         >
+          <Box title="Includes attachment"></Box>
           <IconButton
             color="primary"
             size="small"

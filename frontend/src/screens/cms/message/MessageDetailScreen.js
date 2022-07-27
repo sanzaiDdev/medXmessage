@@ -22,7 +22,7 @@ export const MessageDetailScreen = () => {
 
   // RTKQuery
   const { data, error, isLoading } = useGetMessageDetailQuery(id);
-  const [messageAttachment] = useLazyGetMessageAttachmentQuery();
+  const [fetchMessageAttachment] = useLazyGetMessageAttachmentQuery();
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -40,7 +40,7 @@ export const MessageDetailScreen = () => {
           <IconButton
             color="primary"
             size="small"
-            title="Refresh"
+            title="Refresh messages"
             onClick={() => navigate(-1)}
           >
             <ChevronLeftIcon />
@@ -62,7 +62,7 @@ export const MessageDetailScreen = () => {
               </span>
             </Grid>
 
-            <Grid item md={2}>
+            {/* <Grid item md={2}>
               <Typography sx={{ color: "gray" }}>To</Typography>
             </Grid>
             <Grid item md={9}>
@@ -73,7 +73,7 @@ export const MessageDetailScreen = () => {
                   {r.address}
                 </Typography>
               )) ?? "--"}
-            </Grid>
+            </Grid> */}
 
             <Grid item md={2}>
               <Typography sx={{ color: "gray" }}>Subject</Typography>
@@ -101,29 +101,34 @@ export const MessageDetailScreen = () => {
             </Grid>
           </Grid>
           <br />
-          <Typography>{`Attachements (${data.message.attachments.length})`}</Typography>
-          <Box
-            sx={{
-              width: "100%",
-              padding: 2,
-              borderTop: 1,
-              borderColor: "divider",
-            }}
-          >
-            {data?.message?.attachments.map((attachment) => (
-              <Button
-                sx={{ textDecoration: "none" }}
-                onClick={() =>
-                  messageAttachment({
-                    attachmentId: attachment.attachmentId,
-                    messageId: attachment.messageId,
-                  })
-                }
+          {!!data.message.attachments.length && (
+            <>
+              <Typography>{`Attachements (${data.message.attachments.length})`}</Typography>
+              <Box
+                sx={{
+                  width: "100%",
+                  padding: 2,
+                  borderTop: 1,
+                  borderColor: "divider",
+                }}
               >
-                {attachment.name}
-              </Button>
-            ))}
-          </Box>
+                {data?.message?.attachments.map((attachment) => (
+                  <Button
+                    key={attachment.attachmentId}
+                    sx={{ textDecoration: "none" }}
+                    onClick={() =>
+                      fetchMessageAttachment({
+                        attachmentId: attachment.attachmentId,
+                        messageId: attachment.messageId,
+                      })
+                    }
+                  >
+                    {attachment.name}
+                  </Button>
+                ))}
+              </Box>
+            </>
+          )}
         </Box>
       </Paper>
     </>
