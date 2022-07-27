@@ -10,7 +10,19 @@ export const messageApi = createApi({
     getMessageDetail: builder.query({
       query: (id) => `messages/${id}`,
     }),
+    getMessageAttachment: builder.query({
+      query: (params) => {
+        return {
+          url: "messages/attachment",
+          params,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetMessagesQuery, useGetMessageDetailQuery } = messageApi;
+export const {
+  useGetMessagesQuery,
+  useGetMessageDetailQuery,
+  useLazyGetMessageAttachmentQuery,
+} = messageApi;

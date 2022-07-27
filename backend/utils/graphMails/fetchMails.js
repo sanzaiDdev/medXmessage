@@ -2,6 +2,38 @@ import axios from "axios";
 
 import getToken from "./getAuthToken.js";
 
+export const getMessageAttachments = async (mailId) => {
+  const url = `https://graph.microsoft.com/v1.0/users/${process.env.USER_ID}/messages/${mailId}/attachments`;
+  const res = await authenticatedGraphGetRequest(url);
+
+  return res.data.value.map((a) => ({
+    messageId: mailId,
+    attachmentId: a.id,
+    name: a.name,
+    type: a.contentType,
+  }));
+};
+
+export const getAttachmentRawData = async (messageId, attachmentId) => {
+  const url = `https://graph.microsoft.com/v1.0/users/${process.env.USER_ID}/messages/${messageId}/attachments/${attachmentId}/$value`;
+  return await authenticatedGraphGetRequest(url);
+};
+
+const authenticatedGraphGetRequest = async (url) => {
+  const token = await getToken();
+
+  const res = await axios({
+    method: "GET",
+    url,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+
+  return res;
+};
+
 const getMessages = async (token, url) => {
   console.log("Fetching mails from:", url);
 

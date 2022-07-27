@@ -3,11 +3,27 @@ import { Link as RouterLink } from "react-router-dom";
 import { Box, IconButton, Paper, Stack, Typography, Link } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
-import { MessageItem } from "../../../components/message/MessageItem";
+import { getSocket } from "../../../utils/socket.io.service";
 import { useGetMessagesQuery } from "../../../store/services/message";
 
+import { MessageItem } from "../../../components/message/MessageItem";
+
 export const MessageListScreen = () => {
-  const { data, isLoading, isFetching, refetch } = useGetMessagesQuery();
+  const [info, setInfo] = React.useState("");
+  const [showInfo, setShowInfo] = React.useState(false);
+
+  // RTKQuery
+  const { data, isLoading, refetch } = useGetMessagesQuery();
+
+  const socket = getSocket();
+
+  React.useEffect(() => {
+    socket.on("MESSAGE_FETCHED", (message) => {
+      setShowInfo(true);
+      setInfo(message);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -21,15 +37,29 @@ export const MessageListScreen = () => {
           sx={{ width: "100%", paddingX: 2, paddingY: 1 }}
         >
           <Typography sx={{ fontWeight: 500 }}>Messages (Inbox)</Typography>
-          <Box>
-            {isFetching && (
-              <Typography variant="caption">Fetching...</Typography>
+          <Box display="flex" alignItems="center">
+            {showInfo && (
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  backgroundColor: "#e6f9ff",
+                  paddingX: 2,
+                  paddingY: 0.5,
+                  borderRadius: 1,
+                  marginRight: 2,
+                }}
+              >
+                {info}
+              </Typography>
             )}
             <IconButton
-              color="primary"
+              color="inherit"
               size="small"
-              title="Refresh"
-              onClick={() => refetch()}
+              onClick={() => {
+                setShowInfo(false);
+                refetch();
+              }}
+              sx={{ flexGrow: 0 }}
             >
               <RefreshIcon />
             </IconButton>

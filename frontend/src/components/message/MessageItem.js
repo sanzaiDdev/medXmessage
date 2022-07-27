@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Avatar, Box, Paper, Typography } from "@mui/material";
+import AttachmentIcon from "@mui/icons-material/Attachment";
 
 const getNameInitials = (name) =>
   name
@@ -8,7 +9,13 @@ const getNameInitials = (name) =>
     .map((char) => char[0].toUpperCase())
     .join(".");
 
-export const MessageItem = ({ from, subject, bodyPreview, receivedAt }) => {
+export const MessageItem = ({
+  from,
+  subject,
+  bodyPreview,
+  receivedAt,
+  hasAttachments,
+}) => {
   return (
     <Paper elevation={0} className="message-item">
       <Box
@@ -44,6 +51,13 @@ export const MessageItem = ({ from, subject, bodyPreview, receivedAt }) => {
             {bodyPreview}
           </Typography>
         </Box>
+
+        {hasAttachments && (
+          <Box title="Includes attachment" sx={{ marginRight: 4 }}>
+            <AttachmentIcon />
+          </Box>
+        )}
+
         <Typography
           sx={{
             flexShrink: 0,

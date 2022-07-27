@@ -1,10 +1,20 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Box, Grid, IconButton, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
+  Paper,
+  Typography,
+} from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
-import { useGetMessageDetailQuery } from "../../../store/services/message";
+import {
+  useGetMessageDetailQuery,
+  useLazyGetMessageAttachmentQuery,
+} from "../../../store/services/message";
 
 export const MessageDetailScreen = () => {
   const { id } = useParams();
@@ -12,6 +22,8 @@ export const MessageDetailScreen = () => {
 
   // RTKQuery
   const { data, error, isLoading } = useGetMessageDetailQuery(id);
+  const [messageAttachment, { isLoading: loadingAttachment }] =
+    useLazyGetMessageAttachmentQuery();
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -37,6 +49,7 @@ export const MessageDetailScreen = () => {
           <Typography sx={{ fontWeight: 500 }}>Messages Detail</Typography>
         </Box>
       </Paper>
+
       <Paper elevation={0}>
         <Box sx={{ p: 3 }}>
           <Grid container rowSpacing={2}>
@@ -85,6 +98,30 @@ export const MessageDetailScreen = () => {
               </Box>
             </Grid>
           </Grid>
+          <br />
+          <Typography>{`Attachements (${data.message.attachments.length})`}</Typography>
+          <Box
+            sx={{
+              width: "100%",
+              padding: 2,
+              borderTop: 1,
+              borderColor: "divider",
+            }}
+          >
+            {data?.message?.attachments.map((attachment) => (
+              <Button
+                sx={{ textDecoration: "none" }}
+                onClick={() =>
+                  messageAttachment({
+                    attachmentId: attachment.attachmentId,
+                    messageId: attachment.messageId,
+                  })
+                }
+              >
+                {attachment.name}
+              </Button>
+            ))}
+          </Box>
         </Box>
       </Paper>
     </>
