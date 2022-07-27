@@ -1,4 +1,5 @@
 import axios from "axios";
+import { generateEmailTemplate } from "../utils/generateMailTemplate.js";
 
 import getToken from "./getAuthToken.js";
 
@@ -64,26 +65,18 @@ const getInbox = async () => {
   }
 };
 
-export const sendMessage = async ({
-  subject,
-  toRecetoRecipients,
-  messageContent,
-}) => {
-  const token = await getToken();
-
-  const mailUrl = `https://graph.microsoft.com/v1.0/users/${process.env.USER_ID}/sendMail`;
-
+export const sendMessage = async (subject, toReceipient, messageContent) => {
   const mailData = {
     message: {
       subject,
       body: {
         contentType: "HTML",
-        content: content,
+        content: generateEmailTemplate(messageContent),
       },
       toRecipients: [
         {
           emailAddress: {
-            address: "bibek.lamichhane@nepalcanmove.com",
+            address: toReceipient,
           },
         },
       ],
@@ -91,19 +84,21 @@ export const sendMessage = async ({
     saveToSentItems: "true",
   };
 
+  const token = await getToken();
+
+  const mailUrl = `https://graph.microsoft.com/v1.0/users/${process.env.USER_ID}/sendMail`;
+
   const res = await axios({
     method: "POST",
     url: mailUrl,
     data: mailData,
     headers: {
-      Authorization: `Bearer ${token.access_token}`,
+      Authorization: `Bearer ${token}`,
       "Content-type": "application/json",
     },
   });
 
-  console.log(res);
-
-  return;
+  return res;
 };
 
 export default getInbox;

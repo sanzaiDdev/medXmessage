@@ -5,7 +5,7 @@ import {
   getAllMessages,
   getAttachment,
   getMessageDetail,
-  sendMessage,
+  sendMessageToReceipient,
 } from "../controllers/messageController.js";
 
 const router = Router();
@@ -18,6 +18,6 @@ router.get("/attachment", getAttachment);
 
 router.get("/:id", getMessageDetail);
 
-router.post("/send", sendMessage);
+router.post("/send", sendMessageToReceipient);
 
 export default router;

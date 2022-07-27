@@ -4,6 +4,7 @@ import { emitEvent } from "../socket/socket.service.js";
 import getInbox, {
   getAttachmentRawData,
   getMessageAttachments,
+  sendMessage,
 } from "../graphApi/fetchMails.js";
 import getToken from "../graphApi/getAuthToken.js";
 
@@ -91,12 +92,14 @@ export const getMessageDetail = async (req, res, next) => {
   });
 };
 
-export const sendMessage = async (req, res, next) => {
-  const { message, subject, toReceipients } = req.body;
+export const sendMessageToReceipient = async (req, res, next) => {
+  const { subject, toReceipient, messageContent } = req.body;
 
-  res.status(201).json({
-    message,
-    subject,
-    toReceipients,
+  const { status } = await sendMessage(subject, toReceipient, messageContent);
+
+  res.json({
+    status,
+    message:
+      status === 200 ? "Message successfully sent!" : "Something went wrong",
   });
 };

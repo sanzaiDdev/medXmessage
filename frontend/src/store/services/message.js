@@ -32,4 +32,5 @@ export const {
   useGetMessagesQuery,
   useGetMessageDetailQuery,
   useLazyGetMessageAttachmentQuery,
+  useSendMessageMutation,
 } = messageApi;
