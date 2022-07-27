@@ -8,6 +8,7 @@ import { MessageListScreen } from "../screens/cms/message/MessageListScreen";
 // import { SettingsScreen } from "../screens/cms/SettingsScreen";
 import { MessageDetailScreen } from "../screens/cms/message/MessageDetailScreen";
 import { NotFoundScreen } from "../screens/NotFoundScreen";
+import { SendMessageScreen } from "../screens/cms/message/SendMessageScreen";
 
 export const CMSRoutes = () => {
   return (
@@ -16,6 +17,7 @@ export const CMSRoutes = () => {
         <Route path="dashboard" element={<DashboardScreen />} />
         <Route path="messages" element={<MessageListScreen />} />
         <Route path="messages/:id" element={<MessageDetailScreen />} />
+        <Route path="messages/send" element={<SendMessageScreen />} />
         {/* <Route path="settings" element={<SettingsScreen />} /> */}
         <Route path="*" element={<NotFoundScreen />} />
       </Route>

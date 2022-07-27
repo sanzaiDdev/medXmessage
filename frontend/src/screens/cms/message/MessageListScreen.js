@@ -1,6 +1,14 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { Box, IconButton, Paper, Stack, Typography, Link } from "@mui/material";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import {
+  Box,
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+  Link,
+  Button,
+} from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 import { getSocket } from "../../../utils/socket.io.service";
@@ -11,6 +19,8 @@ import { MessageItem } from "../../../components/message/MessageItem";
 export const MessageListScreen = () => {
   const [info, setInfo] = React.useState("");
   const [showInfo, setShowInfo] = React.useState(false);
+
+  const navigate = useNavigate();
 
   // RTKQuery
   const { data, isLoading, refetch } = useGetMessagesQuery();
@@ -59,10 +69,17 @@ export const MessageListScreen = () => {
                 setShowInfo(false);
                 refetch();
               }}
-              sx={{ flexGrow: 0 }}
+              sx={{ flexGrow: 0, marginRight: 2 }}
             >
               <RefreshIcon />
             </IconButton>
+            <Button
+              color="primary"
+              size="small"
+              onClick={() => navigate("/cms/messages/send")}
+            >
+              Send Message
+            </Button>
           </Box>
         </Box>
       </Paper>
