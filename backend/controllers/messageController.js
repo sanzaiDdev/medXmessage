@@ -6,7 +6,6 @@ import getInbox, {
   getMessageAttachments,
   sendMessage,
 } from "../graphApi/fetchMails.js";
-import getToken from "../graphApi/getAuthToken.js";
 
 const extractBody = (entirePageHTML) => {
   var bodyHtml = /<body.*?>([\s\S]*)<\/body>/.exec(entirePageHTML)[1];
