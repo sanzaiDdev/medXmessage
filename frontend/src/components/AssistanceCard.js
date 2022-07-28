@@ -6,6 +6,9 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import Grid3x3Icon from "@mui/icons-material/Grid3x3";
 
+const primaryColor = "#d45bd2";
+const accentColor = "#fae6fc";
+
 export const AssistanceCard = () => {
   return (
     <Box width={260}>
@@ -29,14 +32,14 @@ export const AssistanceCard = () => {
 
           <Box
             sx={{
-              background: "#fae6fc",
+              background: accentColor,
               borderRadius: 0.5,
               p: 0.5,
             }}
           >
             <Grid3x3Icon
               fontSize="medium"
-              sx={{ color: "#d45bd2", transform: `skewX(-20deg)` }}
+              sx={{ color: primaryColor, transform: `skewX(-20deg)` }}
             />
           </Box>
         </Box>
@@ -73,7 +76,7 @@ export const AssistanceCard = () => {
 
           <Box display="flex" alignItems="center" marginBottom={1}>
             <PhoneIcon
-              sx={{ fontSize: 16, marginRight: 1.5, color: "#d45bd2" }}
+              sx={{ fontSize: 16, marginRight: 1.5, color: primaryColor }}
             />
             <Typography
               sx={{ fontSize: 14, fontFamily: "Quicksand", fontWeight: 600 }}
@@ -83,7 +86,7 @@ export const AssistanceCard = () => {
           </Box>
           <Box display="flex" alignItems="center">
             <EmailIcon
-              sx={{ fontSize: 16, marginRight: 1.5, color: "#d45bd2" }}
+              sx={{ fontSize: 16, marginRight: 1.5, color: primaryColor }}
             />
             <Typography
               sx={{ fontSize: 14, fontFamily: "Quicksand", fontWeight: 600 }}
@@ -95,7 +98,9 @@ export const AssistanceCard = () => {
       </Paper>
       <Paper elevation={4} sx={{ borderRadius: 2 }}>
         <Box display="flex" justifyContent="center" sx={{ paddingY: 6 }}>
-          <Box sx={{ border: "2px solid #fae6fc", p: 2, borderRadius: 1 }}>
+          <Box
+            sx={{ border: `2px solid ${accentColor}`, p: 2, borderRadius: 1 }}
+          >
             <QRCodeSVG value="https://reactjs.org/" />
           </Box>
         </Box>
