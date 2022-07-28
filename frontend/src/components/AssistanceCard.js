@@ -31,7 +31,7 @@ export const AssistanceCard = () => {
             sx={{
               background: "#fae6fc",
               borderRadius: 0.5,
-              p: 0.75,
+              p: 0.5,
             }}
           >
             <Grid3x3Icon
@@ -95,7 +95,9 @@ export const AssistanceCard = () => {
       </Paper>
       <Paper elevation={4} sx={{ borderRadius: 2 }}>
         <Box display="flex" justifyContent="center" sx={{ paddingY: 6 }}>
-          <QRCodeSVG value="https://reactjs.org/" />
+          <Box sx={{ border: "2px solid #fae6fc", p: 2, borderRadius: 1 }}>
+            <QRCodeSVG value="https://reactjs.org/" />
+          </Box>
         </Box>
       </Paper>
     </Box>
