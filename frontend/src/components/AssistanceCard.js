@@ -101,7 +101,7 @@ export const AssistanceCard = () => {
           <Box
             sx={{ border: `2px solid ${accentColor}`, p: 2, borderRadius: 1 }}
           >
-            <QRCodeSVG value="https://reactjs.org/" />
+            <QRCodeSVG value="http://provider.medxgateway.com/" />
           </Box>
         </Box>
       </Paper>
